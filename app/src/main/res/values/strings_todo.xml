@@ -1,0 +1,4 @@
+<resources>
+    <string name="todo_delete">Delete</string>
+    <string name="todo_content">Content</string>
+</resources>
