@@ -1,20 +1,19 @@
 package info.tuver.todo.data.repository
 
-import androidx.lifecycle.LiveData
 import info.tuver.todo.data.model.TodoModel
 
 interface TodoRepository {
 
-    val todoList: LiveData<List<TodoModel>>
+    suspend fun getTodo(id: Long): TodoModel
 
-    suspend fun refreshTodoList()
+    suspend fun getTodoList(): List<TodoModel>
 
-    suspend fun createTodo(content: String)
+    suspend fun createTodo(content: String): TodoModel
 
     suspend fun deleteTodo(todo: TodoModel)
 
-    suspend fun setAsCompleted(todo: TodoModel)
+    suspend fun setAsCompleted(todo: TodoModel): TodoModel
 
-    suspend fun setAsNotCompleted(todo: TodoModel)
+    suspend fun setAsNotCompleted(todo: TodoModel): TodoModel
 
 }

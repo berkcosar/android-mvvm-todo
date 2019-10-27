@@ -27,7 +27,7 @@
             android:layout_height="48dp"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
-            android:onClick="@{() -> viewModel.onAddTodoFabClicked()}"
+            android:onClick="@{() -> viewModel.onAddTodoButtonClicked()}"
             app:fabCustomSize="48dp"
             app:fabVisible="@{viewModel.addTodoButtonVisibleValue}"
             app:layout_constraintBottom_toBottomOf="parent"

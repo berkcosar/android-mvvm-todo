@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
-fun EditText.focusAndShowKeyboard(context: Context) {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-
-    requestFocus()
-    inputMethodManager?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+fun EditText.focusAndShowKeyboard() {
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.let {
+        requestFocus()
+        it.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+    }
 }

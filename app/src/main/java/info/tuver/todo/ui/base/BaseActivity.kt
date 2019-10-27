@@ -12,11 +12,13 @@ abstract class BaseActivity<TViewModel : BaseActivityViewModel, TDataBinding : V
 
     protected abstract fun initView()
 
-    protected abstract fun restoreView(savedInstanceState: Bundle)
-
     protected abstract fun setupView()
 
     protected abstract fun createViewModel(): TViewModel
+
+    open fun restoreView(savedInstanceState: Bundle) {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

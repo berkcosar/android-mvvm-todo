@@ -1,4 +1,5 @@
 package info.tuver.todo.ui.base
 
-abstract class BaseFragmentViewModel : BaseViewModel() {
-}
+import info.tuver.todo.provider.CoroutineDispatcherProvider
+
+abstract class BaseFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : BaseViewModel(coroutineDispatcherProvider)

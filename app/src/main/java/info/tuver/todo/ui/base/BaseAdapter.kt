@@ -12,6 +12,10 @@ abstract class BaseAdapter<TItem : BaseModel, TViewHolderDataBinding : ViewDataB
 
     private var itemList = mutableListOf<TItem>()
 
+    abstract fun createViewHolderBinding(layoutInflater: LayoutInflater, parent: ViewGroup, attachToRoot: Boolean): TViewHolderDataBinding
+
+    abstract fun createViewHolder(viewHolderDataBinding: TViewHolderDataBinding): TViewHolder
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TViewHolder {
         val viewHolderBinding = createViewHolderBinding(
             LayoutInflater.from(parent.context),
@@ -21,10 +25,6 @@ abstract class BaseAdapter<TItem : BaseModel, TViewHolderDataBinding : ViewDataB
 
         return createViewHolder(viewHolderBinding)
     }
-
-    abstract fun createViewHolderBinding(layoutInflater: LayoutInflater, parent: ViewGroup, attachToRoot: Boolean): TViewHolderDataBinding
-
-    abstract fun createViewHolder(viewHolderDataBinding: TViewHolderDataBinding): TViewHolder
 
     override fun getItemCount(): Int {
         return itemList.size

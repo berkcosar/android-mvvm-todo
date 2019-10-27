@@ -1,33 +1,32 @@
 package info.tuver.todo.ui.base
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
+import info.tuver.todo.provider.CoroutineDispatcherProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : ViewModel() {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineJob = Job()
 
-    protected fun launchOnMain(block: suspend CoroutineScope.() -> Unit) {
-        coroutineScope.launch(block = block)
-    }
+    private val coroutineMainScope = CoroutineScope(coroutineDispatcherProvider.mainDispatcher + coroutineJob)
 
-    protected fun asyncOnIO(block: suspend CoroutineScope.() -> Unit) {
-        asyncOnIO(block, { })
-    }
+    private val coroutineIoScope = CoroutineScope(coroutineDispatcherProvider.ioDispatcher + coroutineJob)
 
-    protected fun asyncOnIO(block: suspend CoroutineScope.() -> Unit, completedBlock: suspend CoroutineScope.() -> Unit) {
-        launchOnMain {
-            val deferred = async(Dispatchers.IO) {
-                block()
+    protected fun <T> asyncOnIo(block: suspend CoroutineScope.() -> T, completedBlock: suspend CoroutineScope.(result: T) -> Unit = { }) {
+        coroutineIoScope.launch {
+            val result = block()
+
+            withContext(coroutineMainScope.coroutineContext) {
+                completedBlock(result)
             }
-
-            deferred.await()
-            completedBlock()
         }
     }
 
     override fun onCleared() {
-        coroutineScope.cancel()
+        coroutineJob.cancel()
         super.onCleared()
     }
 

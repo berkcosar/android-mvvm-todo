@@ -1,4 +1,5 @@
 package info.tuver.todo.ui.base
 
-abstract class BaseActivityViewModel : BaseViewModel() {
-}
+import info.tuver.todo.provider.CoroutineDispatcherProvider
+
+abstract class BaseActivityViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : BaseViewModel(coroutineDispatcherProvider)

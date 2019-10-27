@@ -2,11 +2,15 @@ package info.tuver.todo.extension
 
 import androidx.lifecycle.MutableLiveData
 
-fun <T> MutableLiveData<List<T>>.add(item: T, index: Int = 0) {
+fun <T> MutableLiveData<List<T>>.add(item: T, index: Int? = null) {
     value?.let {
         val existingValue = it.toMutableList()
 
-        existingValue.add(index, item)
+        when (index) {
+            null -> existingValue.add(item)
+            else -> existingValue.add(index, item)
+        }
+
         postValue(existingValue)
     }
 }

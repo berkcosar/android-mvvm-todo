@@ -8,7 +8,7 @@ import info.tuver.todo.data.model.TodoModel
 @Dao
 interface TodoDao {
 
-    @Query("select * from todo order by createdDate desc")
+    @Query("select * from todo order by createdDate asc")
     suspend fun selectList(): List<TodoModel>
 
     @Query("select * from todo where id = :id limit 1")

@@ -1,6 +1,5 @@
 package info.tuver.todo.ui.todo
 
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import info.tuver.todo.R
 import info.tuver.todo.databinding.ActivityTodoBinding
@@ -16,9 +15,6 @@ class TodoActivity : BaseActivity<TodoActivityViewModel, ActivityTodoBinding>(R.
 
     override fun initView() {
         replaceFragment(activity_todo_fragment_layout, TodoListFragment())
-    }
-
-    override fun restoreView(savedInstanceState: Bundle) {
     }
 
     override fun setupView() {

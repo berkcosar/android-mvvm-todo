@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="info.tuver.todo.ui.todo.todoCreate.TodoCreateViewModel" />
+            type="info.tuver.todo.ui.todo.todoCreate.TodoCreateFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
