@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,50 +12,47 @@
         <variable
             name="actions"
             type="info.tuver.todo.ui.todo.todoList.TodoListAdapterActions" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/colorItemDeleteBackground"
-            android:padding="@dimen/content_padding"
             app:layout_constraintBottom_toBottomOf="@id/item_todo_container_layout"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/item_todo_delete_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_delete_24px_white" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_todo_delete_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/content_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete_24_white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/content_padding"
-                android:text="@string/todo_delete"
-                android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/item_todo_delete_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:text="@string/todo_delete"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/item_todo_delete_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_todo_container_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            android:padding="@dimen/content_padding"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -61,9 +60,10 @@
                 android:id="@+id/list_todo_completed_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
                 android:checked="@{item.completed}"
-                android:onCheckedChanged="@{(checkBox, checked) -> actions.onItemCompletedCheckboxValueChanged(item, checked)}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:onCheckedChanged="@{(checkBox, checked) -> actions.onTodoCompletedCheckboxValueChanged(item, checked)}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,13 +74,29 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{item.content}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/list_todo_completed_checkbox"
                 app:layout_constraintLeft_toRightOf="@id/list_todo_completed_checkbox"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/list_todo_completed_checkbox"
                 app:textStrikeThru="@{item.completed}"
                 tools:text="Buy milk" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_todo_tag_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/content_spacing"
+                android:paddingEnd="@dimen/content_spacing"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/list_todo_completed_checkbox"
+                tools:itemCount="15"
+                tools:listitem="@layout/item_todo_tag" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
             type="info.tuver.todo.ui.todo.todoCreate.TodoCreateFragmentViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <View
             android:layout_width="match_parent"
@@ -21,15 +22,21 @@
             app:layout_constraintBottom_toTopOf="@id/fragment_todo_create_content_layout"
             app:layout_constraintLeft_toLeftOf="parent" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fragment_todo_create_content_layout" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_todo_create_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
             android:hint="@string/todo_content"
-            android:padding="@dimen/content_padding_half"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="parent">
+            android:padding="@dimen/content_spacing_half"
+            app:layout_constraintBottom_toTopOf="@id/fragment_todo_create_tag_select_fragment"
+            app:layout_constraintLeft_toLeftOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fragment_todo_create_content_edit_text"
@@ -37,9 +44,31 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionSend"
                 android:inputType="textCapSentences"
+                android:paddingEnd="@dimen/content_spacing_double"
                 android:text="@={viewModel.newTodoContentValue}" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/todo_save"
+            android:onClick="@{() -> viewModel.onCreateTodoRequest()}"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_todo_create_content_layout"
+            app:layout_constraintRight_toRightOf="@id/fragment_todo_create_content_layout"
+            app:layout_constraintTop_toTopOf="@id/fragment_todo_create_content_layout"
+            app:srcCompat="@drawable/ic_send_24_accent" />
+
+        <fragment
+            android:id="@+id/fragment_todo_create_tag_select_fragment"
+            android:name="info.tuver.todo.ui.todo.todoTagSelect.TodoTagSelectFragmentView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout="@layout/fragment_todo_tag_select" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

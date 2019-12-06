@@ -1,5 +1,10 @@
 <resources>
     <string name="todo_delete">Delete</string>
+    <string name="todo_deleted">Todo deleted.</string>
+    <string name="todo_delete_undo">Undo</string>
     <string name="todo_content">Content</string>
     <string name="todo_create">Create</string>
+    <string name="todo_save">Save</string>
+    <string name="todo_tag_select_create">+ Create a new tag</string>
+    <string name="todo_menu_manage_tags">Manage tags</string>
 </resources>

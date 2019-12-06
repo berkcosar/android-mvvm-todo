@@ -6,49 +6,68 @@ import info.tuver.todo.data.model.TodoModel
 import info.tuver.todo.data.repository.TodoRepository
 import info.tuver.todo.extension.add
 import info.tuver.todo.extension.remove
-import info.tuver.todo.extension.replace
+import info.tuver.todo.external.SingleLiveEvent
 import info.tuver.todo.provider.CoroutineDispatcherProvider
 import info.tuver.todo.ui.base.BaseFragmentViewModel
 
 class TodoListFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, private val todoRepository: TodoRepository) : BaseFragmentViewModel(coroutineDispatcherProvider) {
 
-    private val mutableTodoList = MutableLiveData<List<TodoModel>>()
+    private var deletedTodo: TodoModel? = null
 
-    val todoList: LiveData<List<TodoModel>>
-        get() = mutableTodoList
+    private var deletedTodoPosition: Int = 0
+
+    private val mutableTodoListValue = MutableLiveData<List<TodoModel>>()
+
+    val todoUpdatedEvent = SingleLiveEvent<TodoModel>()
+
+    val todoDeletedEvent = SingleLiveEvent<Void>()
+
+    val todoListValue: LiveData<List<TodoModel>>
+        get() = mutableTodoListValue
 
     fun onLoadTodoListRequest() {
         asyncOnIo(
             { todoRepository.getTodoList() },
-            { result -> mutableTodoList.value = result }
+            { mutableTodoListValue.value = it }
         )
     }
 
     fun onDeleteTodoRequest(position: Int) {
-        todoList.value?.get(position)?.let { todo ->
+        todoListValue.value?.get(position)?.let { todo ->
             asyncOnIo(
-                { todoRepository.deleteTodo(todo) },
-                { mutableTodoList.remove(todo) }
+                { todoRepository.deleteTodo(todo.id) },
+                {
+                    deletedTodo = todo
+                    deletedTodoPosition = position
+
+                    mutableTodoListValue.remove(todo)
+                    todoDeletedEvent.call()
+                }
             )
         }
     }
 
     fun onUpdateTodoCompletedValueRequest(todo: TodoModel, completed: Boolean) {
         asyncOnIo(
+            { todoRepository.updateTodoCompleted(todo.id, completed) },
             {
-                when {
-                    completed -> todoRepository.setAsCompleted(todo)
-                    else -> todoRepository.setAsNotCompleted(todo)
-                }
-            },
-            { result ->
-                mutableTodoList.replace(todo, result)
+                todo.completed = completed
+                todoUpdatedEvent.postValue(todo)
             }
         )
     }
 
+    fun onUndoDeleteTodoRequest() {
+        deletedTodo?.let { todo ->
+            asyncOnIo(
+                { todoRepository.undoDeleteTodo(todo.id) },
+                { mutableTodoListValue.add(todo, deletedTodoPosition) }
+            )
+        }
+    }
+
     fun onTodoCreatedEvent(todo: TodoModel) {
-        mutableTodoList.add(todo)
+        mutableTodoListValue.add(todo)
     }
 
 }

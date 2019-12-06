@@ -1,34 +1,11 @@
 package info.tuver.todo.ui.base
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import info.tuver.todo.BR
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 
-abstract class BaseActivity<TViewModel : BaseActivityViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int) : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
-    protected lateinit var viewModel: TViewModel
-
-    protected abstract fun initView()
-
-    protected abstract fun setupView()
-
-    protected abstract fun createViewModel(): TViewModel
-
-    open fun restoreView(savedInstanceState: Bundle) {
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<TDataBinding>(this, layoutResourceId)
-
-        viewModel = createViewModel()
-        binding.setVariable(BR.viewModel, viewModel)
-
-        savedInstanceState?.let { this.restoreView(it) } ?: this.initView()
-        setupView()
-    }
+    abstract val coordinatorLayout: CoordinatorLayout
+        get
 
 }

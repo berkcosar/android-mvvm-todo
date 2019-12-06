@@ -37,7 +37,7 @@ class TodoListFragmentViewModelTest : BaseViewModelTest() {
         todoListObserver = mock()
 
         viewModel = TodoListFragmentViewModel(coroutineDispatcherProvider, todoRepository).apply {
-            todoList.observeForever(todoListObserver)
+            todoListValue.observeForever(todoListObserver)
         }
     }
 

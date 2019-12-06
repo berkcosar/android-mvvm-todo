@@ -1,7 +1,9 @@
 package info.tuver.todo.data.model
 
-abstract class BaseModel {
+import java.io.Serializable
 
-    abstract var id: Long
+abstract class BaseModel : Serializable {
+
+    abstract val idCode: Long
 
 }

@@ -1,0 +1,6 @@
+<resources>
+    <string name="tag_name">Tag Name</string>
+    <string name="tag_create">Create</string>
+    <string name="tag_update">Update</string>
+    <string name="tag_delete">Delete Tag</string>
+</resources>

@@ -5,6 +5,6 @@ import info.tuver.todo.ui.base.BaseAdapterActions
 
 interface TodoListAdapterActions : BaseAdapterActions {
 
-    fun onItemCompletedCheckboxValueChanged(todo: TodoModel, checked: Boolean)
+    fun onTodoCompletedCheckboxValueChanged(todo: TodoModel, checked: Boolean)
 
 }

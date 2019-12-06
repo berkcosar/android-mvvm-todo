@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,12 +9,10 @@
             type="info.tuver.todo.ui.todo.TodoActivityViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/activity_todo_coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.todo.TodoActivity">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/activity_todo_fragment_layout"
@@ -25,6 +24,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             android:onClick="@{() -> viewModel.onAddTodoButtonClicked()}"
@@ -32,7 +32,9 @@
             app:fabVisible="@{viewModel.addTodoButtonVisibleValue}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24px_white" />
+            app:srcCompat="@drawable/ic_add_24_white" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

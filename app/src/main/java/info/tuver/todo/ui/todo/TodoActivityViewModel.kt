@@ -17,9 +17,7 @@ class TodoActivityViewModel(coroutineDispatcherProvider: CoroutineDispatcherProv
     }
 
     fun onBackButtonClicked() {
-        if (!addTodoButtonVisibleValue.get()) {
-            addTodoButtonVisibleValue.set(true)
-        }
+        addTodoButtonVisibleValue.set(true)
     }
 
 }

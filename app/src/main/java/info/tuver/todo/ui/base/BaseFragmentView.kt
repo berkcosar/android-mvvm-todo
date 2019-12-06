@@ -11,15 +11,17 @@ import androidx.fragment.app.Fragment
 import info.tuver.todo.BR
 import org.greenrobot.eventbus.EventBus
 
-abstract class BaseFragment<TViewModel : BaseFragmentViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int, private val consumesEvents: Boolean = false) : Fragment() {
+abstract class BaseFragmentView<TViewModel : BaseFragmentViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int, private val consumesEvents: Boolean = false) : Fragment() {
 
     protected lateinit var viewModel: TViewModel
 
     protected abstract fun createViewModel(): TViewModel
 
-    protected abstract fun initView(context: Context)
+    protected abstract fun setupView(context: Context)
 
-    open protected fun restoreView(context: Context, savedInstanceState: Bundle) {
+    protected abstract fun startView(context: Context)
+
+    protected open fun restoreView(context: Context, savedInstanceState: Bundle) {
 
     }
 
@@ -36,12 +38,12 @@ abstract class BaseFragment<TViewModel : BaseFragmentViewModel, TDataBinding : V
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         context?.let { safeContext ->
-            initView(safeContext)
-            savedInstanceState?.let { restoreView(safeContext, it) }
+            setupView(safeContext)
+            savedInstanceState?.let { restoreView(safeContext, it) } ?: startView(safeContext)
         }
     }
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="info.tuver.todo.data.model.ColorSelectModel" />
+
+        <variable
+            name="actions"
+            type="info.tuver.todo.ui.tag.tagColorSelect.TagColorSelectAdapterActions" />
+
+    </data>
+
+    <View
+        backgroundColor="@{item.color.color}"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:onClick="@{() -> actions.onTagColorSelectClicked(item)}"
+        tools:background="@color/colorAccent">
+
+    </View>
+
+</layout>

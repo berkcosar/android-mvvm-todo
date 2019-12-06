@@ -1,6 +1,8 @@
 <resources>
-    <dimen name="content_padding">16dp</dimen>
-    <dimen name="content_padding_half">8dp</dimen>
+    <dimen name="content_spacing">16dp</dimen>
+    <dimen name="content_spacing_double">32dp</dimen>
+    <dimen name="content_spacing_half">8dp</dimen>
+    <dimen name="content_spacing_quarter">4dp</dimen>
     <dimen name="fab_width">48dp</dimen>
     <dimen name="fab_height">48dp</dimen>
     <dimen name="fab_margin">16dp</dimen>

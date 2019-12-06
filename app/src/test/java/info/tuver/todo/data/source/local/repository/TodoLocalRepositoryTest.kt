@@ -15,7 +15,7 @@ import java.util.*
 @RunWith(JUnit4::class)
 class TodoLocalRepositoryTest : BaseTest() {
 
-    private val todoId = 0L
+    private val todoId = 214L
 
     private val todoContent = "test todo content"
 
@@ -30,16 +30,6 @@ class TodoLocalRepositoryTest : BaseTest() {
     override fun onSetup() {
         todoDao = mock()
         todoLocalRepository = TodoLocalRepository(todoDao)
-    }
-
-    @Test
-    fun `should call selectById when get todo`() = runBlocking {
-        whenever(todoDao.selectById(todoId)).doReturn(todo)
-
-        val getTodoResult = todoLocalRepository.getTodo(todoId)
-
-        verify(todoDao, once()).selectById(todoId)
-        assertEquals(todo, getTodoResult)
     }
 
     @Test
