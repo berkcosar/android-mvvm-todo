@@ -6,7 +6,7 @@ import info.tuver.todo.ui.base.BaseDialogFragmentViewModel
 
 class TodoTagCreateDialogFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : BaseDialogFragmentViewModel(coroutineDispatcherProvider) {
 
-    fun onTagCreatedEvent(tag: TagModel) {
+    fun onTagCreated(tag: TagModel) {
         dialogCompletedEvent.call()
     }
 

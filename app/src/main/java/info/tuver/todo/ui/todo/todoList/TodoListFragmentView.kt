@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import info.tuver.todo.R
+import info.tuver.todo.data.model.TagModel
 import info.tuver.todo.data.model.TodoModel
 import info.tuver.todo.databinding.FragmentTodoListBinding
 import info.tuver.todo.extension.addItemTouchHelper
@@ -60,9 +61,13 @@ class TodoListFragmentView : BaseFragmentView<TodoListFragmentViewModel, Fragmen
         viewModel.onUpdateTodoCompletedValueRequest(todo, checked)
     }
 
+    override fun onTodoTagClicked(tag: TagModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTodoCreatedEvent(todoCreatedEvent: TodoCreateEvents.TodoCreatedEvent) {
-        viewModel.onTodoCreatedEvent(todoCreatedEvent.todo)
+    fun onTodoCreated(todoCreatedEvent: TodoCreateEvents.TodoCreatedEvent) {
+        viewModel.onTodoCreated(todoCreatedEvent.todo)
     }
 
 }

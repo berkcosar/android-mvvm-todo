@@ -3,6 +3,7 @@ package info.tuver.todo.extension
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
@@ -29,6 +30,11 @@ fun Fragment.addFragment(containerFrameLayout: FrameLayout, fragment: Fragment) 
         .add(containerFrameLayout.id, fragment)
         .addToBackStack(fragment.toString())
         .commit()
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T : Fragment> Fragment.getFragment(@IdRes fragmentId: Int) : T {
+    return childFragmentManager.findFragmentById(fragmentId) as T
 }
 
 fun Fragment.showDialogFragment(dialogFragment: DialogFragment) {

@@ -26,7 +26,7 @@ class TagColorSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDisp
         )
     }
 
-    fun onTagColorSelectClickedEvent(colorSelect: ColorSelectModel) {
+    fun onTagColorSelectClicked(colorSelect: ColorSelectModel) {
         mutableSelectedColorSelect.postValue(colorSelect)
     }
 

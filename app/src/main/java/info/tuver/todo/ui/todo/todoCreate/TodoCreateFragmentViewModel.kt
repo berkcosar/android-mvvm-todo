@@ -33,7 +33,7 @@ class TodoCreateFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatch
         }
     }
 
-    fun onTodoTagSelectionChangedEvent(tagList: List<TagModel>) {
+    fun onTodoTagSelectionChanged(tagList: List<TagModel>) {
         selectedTagIdList = tagList.map { it.id }
     }
 

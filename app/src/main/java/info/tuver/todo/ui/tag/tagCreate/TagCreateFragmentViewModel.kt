@@ -28,7 +28,7 @@ class TagCreateFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatche
         }
     }
 
-    fun onTagColorSelectedEvent(color: ColorModel) {
+    fun onTagColorSelected(color: ColorModel) {
         selectedColor = color
     }
 

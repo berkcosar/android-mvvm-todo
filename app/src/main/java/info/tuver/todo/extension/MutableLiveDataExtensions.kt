@@ -13,12 +13,14 @@ fun <T> MutableLiveData<List<T>>.add(item: T, index: Int? = null) {
     postValue(existingValue)
 }
 
-fun <T> MutableLiveData<List<T>>.remove(item: T) {
-    value?.let {
-        val existingValue = it.toMutableList()
+fun <T> MutableLiveData<List<T>>.remove(item: T?) {
+    if (item != null) {
+        value?.let {
+            val existingValue = it.toMutableList()
 
-        existingValue.remove(item)
-        postValue(existingValue)
+            existingValue.remove(item)
+            postValue(existingValue)
+        }
     }
 }
 

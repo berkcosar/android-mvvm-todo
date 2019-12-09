@@ -9,6 +9,10 @@
             name="viewModel"
             type="info.tuver.todo.ui.tag.tagColorSelect.TagColorSelectFragmentViewModel" />
 
+        <variable
+            name="selectedColor"
+            type="info.tuver.todo.data.model.ColorModel" />
+
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -18,8 +18,8 @@ class TodoTagCreateDialogFragmentView : BaseDialogFragmentView<TodoTagCreateDial
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTagCreatedEvent(tagCreatedEvent: TagCreateEvents.TagCreatedEvent) {
-        viewModel.onTagCreatedEvent(tagCreatedEvent.tag)
+    fun onTagCreated(tagCreatedEvent: TagCreateEvents.TagCreatedEvent) {
+        viewModel.onTagCreated(tagCreatedEvent.tag)
     }
 
 }

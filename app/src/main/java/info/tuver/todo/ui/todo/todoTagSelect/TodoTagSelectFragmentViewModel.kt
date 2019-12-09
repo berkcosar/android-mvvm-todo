@@ -51,9 +51,17 @@ class TodoTagSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispa
         showTagCreateViewEvent.call()
     }
 
-    fun onTagCreatedEvent(tag: TagModel) {
+    fun onTagCreated(tag: TagModel) {
         mutableTagSelectListValue.add(TagSelectModel(tag, true))
         mutableSelectedTagListValue.add(tag)
+    }
+
+    fun onTagEdited(tag: TagModel) {
+    }
+
+    fun onTagDeleted(tag: TagModel) {
+        mutableSelectedTagListValue.remove(tag)
+        mutableTagSelectListValue.remove(mutableTagSelectListValue.value?.find { it.tag == tag })
     }
 
 }

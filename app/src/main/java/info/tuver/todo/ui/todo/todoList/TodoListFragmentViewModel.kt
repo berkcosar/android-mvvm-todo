@@ -66,7 +66,7 @@ class TodoListFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcher
         }
     }
 
-    fun onTodoCreatedEvent(todo: TodoModel) {
+    fun onTodoCreated(todo: TodoModel) {
         mutableTodoListValue.add(todo)
     }
 
