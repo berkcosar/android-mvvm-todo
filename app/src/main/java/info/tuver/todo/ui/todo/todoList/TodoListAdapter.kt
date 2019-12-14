@@ -3,7 +3,7 @@ package info.tuver.todo.ui.todo.todoList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import info.tuver.todo.data.model.TodoModel
+import info.tuver.todo.model.TodoModel
 import info.tuver.todo.databinding.ItemTodoBinding
 import info.tuver.todo.ui.base.BaseAdapter
 

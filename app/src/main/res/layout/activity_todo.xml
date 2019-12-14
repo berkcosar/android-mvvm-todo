@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,12 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/activity_todo_fragment_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/activity_todo_todo_list_fragment"
+                android:name="info.tuver.todo.ui.todo.todoList.TodoListFragmentView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/activity_todo_todo_create_fragment_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout="@layout/fragment_todo_list" />
+
+            <View
+                android:id="@+id/activity_todo_todo_create_divider_view"
+                isVisible="@{viewModel.createTodoViewVisibleValue}"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/bg_gradient_transparent_to_black"
+                app:layout_constraintBottom_toTopOf="@id/activity_todo_todo_create_fragment_layout"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/activity_todo_todo_create_fragment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="48dp"

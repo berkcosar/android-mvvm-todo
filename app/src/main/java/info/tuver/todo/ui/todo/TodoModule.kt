@@ -10,9 +10,9 @@ import org.koin.dsl.module
 
 val todoModule = module {
     viewModel { TodoActivityViewModel(get()) }
-    viewModel { TodoListFragmentViewModel(get(), get()) }
-    viewModel { TodoCreateFragmentViewModel(get(), get(), get()) }
-    viewModel { TodoTagCreateDialogFragmentViewModel(get()) }
-    viewModel { TodoTagEditDialogFragmentViewModel(get()) }
+    viewModel { TodoListFragmentViewModel(get(), get(), get()) }
+    viewModel { TodoCreateFragmentViewModel(get(), get()) }
+    viewModel { TodoTagCreateDialogFragmentViewModel(get(), get()) }
+    viewModel { TodoTagEditDialogFragmentViewModel(get(), get()) }
     viewModel { TodoTagSelectFragmentViewModel(get(), get()) }
 }

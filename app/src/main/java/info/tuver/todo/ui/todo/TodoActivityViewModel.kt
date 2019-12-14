@@ -1,23 +1,27 @@
 package info.tuver.todo.ui.todo
 
-import androidx.databinding.ObservableBoolean
-import info.tuver.todo.external.SingleLiveEvent
+import androidx.databinding.ObservableField
 import info.tuver.todo.provider.CoroutineDispatcherProvider
 import info.tuver.todo.ui.base.BaseActivityViewModel
 
 class TodoActivityViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : BaseActivityViewModel(coroutineDispatcherProvider) {
 
-    val addTodoButtonVisibleValue = ObservableBoolean(true)
+    val addTodoButtonVisibleValue = ObservableField<Boolean>(true)
 
-    val showTodoCreateViewEvent = SingleLiveEvent<Void>()
+    val createTodoViewVisibleValue = ObservableField<Boolean>(false)
 
     fun onAddTodoButtonClicked() {
         addTodoButtonVisibleValue.set(false)
-        showTodoCreateViewEvent.call()
+        createTodoViewVisibleValue.set(true)
     }
 
     fun onBackButtonClicked() {
-        addTodoButtonVisibleValue.set(true)
+        if (createTodoViewVisibleValue.get() == false) {
+            completedEvent.call()
+        } else {
+            addTodoButtonVisibleValue.set(true)
+            createTodoViewVisibleValue.set(false)
+        }
     }
 
 }

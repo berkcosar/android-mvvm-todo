@@ -1,6 +1,6 @@
 package info.tuver.todo.ui.todo.todoTagSelect
 
-import info.tuver.todo.data.model.TagSelectModel
+import info.tuver.todo.model.TagSelectModel
 import info.tuver.todo.ui.base.BaseAdapterActions
 
 interface TodoTagSelectAdapterActions : BaseAdapterActions {

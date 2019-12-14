@@ -3,7 +3,7 @@ package info.tuver.todo.ui.todo.todoTagSelect
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import info.tuver.todo.data.model.TagSelectModel
+import info.tuver.todo.model.TagSelectModel
 import info.tuver.todo.databinding.ItemTodoTagSelectBinding
 import info.tuver.todo.databinding.ItemTodoTagSelectCreateBinding
 import info.tuver.todo.ui.base.BaseAdapter

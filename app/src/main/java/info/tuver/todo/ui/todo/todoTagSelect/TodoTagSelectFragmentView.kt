@@ -4,22 +4,18 @@ import android.content.Context
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
 import info.tuver.todo.R
-import info.tuver.todo.data.model.TagModel
-import info.tuver.todo.data.model.TagSelectModel
 import info.tuver.todo.databinding.FragmentTodoTagSelectBinding
 import info.tuver.todo.extension.showDialogFragment
+import info.tuver.todo.model.TagModel
+import info.tuver.todo.model.TagSelectModel
 import info.tuver.todo.ui.base.BaseFragmentView
 import info.tuver.todo.ui.common.SpacingItemDecoration
-import info.tuver.todo.ui.tag.tagCreate.TagCreateEvents
-import info.tuver.todo.ui.tag.tagEdit.TagEditEvents
 import info.tuver.todo.ui.todo.todoTagCreateDialog.TodoTagCreateDialogFragmentView
 import info.tuver.todo.ui.todo.todoTagEditDialog.TodoTagEditDialogFragmentView
 import kotlinx.android.synthetic.main.fragment_todo_tag_select.*
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.viewmodel.ext.android.getViewModel
 
-class TodoTagSelectFragmentView : BaseFragmentView<TodoTagSelectFragmentViewModel, FragmentTodoTagSelectBinding>(R.layout.fragment_todo_tag_select, true), TodoTagSelectAdapterActions {
+class TodoTagSelectFragmentView : BaseFragmentView<TodoTagSelectFragmentViewModel, FragmentTodoTagSelectBinding>(R.layout.fragment_todo_tag_select), TodoTagSelectAdapterActions {
 
     private val todoTagSelectAdapter = TodoTagSelectAdapter(this)
 
@@ -37,11 +33,15 @@ class TodoTagSelectFragmentView : BaseFragmentView<TodoTagSelectFragmentViewMode
         showDialogFragment(TodoTagEditDialogFragmentView.newInstance(tag))
     }
 
+    private fun notifyTagSelectUpdated(tagSelect: TagSelectModel) {
+        todoTagSelectAdapter.notifyItemChanged(tagSelect)
+    }
+
     override fun createViewModel(): TodoTagSelectFragmentViewModel {
         return getViewModel()
     }
 
-    override fun setupView(context: Context) {
+    override fun onSetupView(context: Context) {
         fragment_todo_tag_select_recycler.adapter = todoTagSelectAdapter
         fragment_todo_tag_select_recycler.addItemDecoration(SpacingItemDecoration(context))
 
@@ -49,9 +49,10 @@ class TodoTagSelectFragmentView : BaseFragmentView<TodoTagSelectFragmentViewMode
         viewModel.tagSelectListValue.observe(viewLifecycleOwner, Observer { updateTagSelectList(it) })
         viewModel.showTagCreateViewEvent.observe(viewLifecycleOwner, Observer { showTagCreateDialog() })
         viewModel.showTagEditViewEvent.observe(viewLifecycleOwner, Observer { showTagEditDialog(it) })
+        viewModel.tagSelectUpdatedEvent.observe(viewLifecycleOwner, Observer { notifyTagSelectUpdated(it) })
     }
 
-    override fun startView(context: Context) {
+    override fun onStartView(context: Context) {
         viewModel.onLoadTagSelectListRequest()
     }
 
@@ -65,21 +66,6 @@ class TodoTagSelectFragmentView : BaseFragmentView<TodoTagSelectFragmentViewMode
 
     override fun onCreateNewTagButtonClicked() {
         viewModel.onCreateNewTagButtonClicked()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTagCreated(tagCreatedEvent: TagCreateEvents.TagCreatedEvent) {
-        viewModel.onTagCreated(tagCreatedEvent.tag)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTagEdited(tagEditedEvent: TagEditEvents.TagEditedEvent) {
-        viewModel.onTagEdited(tagEditedEvent.tag)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTagDeleted(tagDeletedEvent: TagEditEvents.TagDeletedEvent) {
-        viewModel.onTagDeleted(tagDeletedEvent.tag)
     }
 
 }

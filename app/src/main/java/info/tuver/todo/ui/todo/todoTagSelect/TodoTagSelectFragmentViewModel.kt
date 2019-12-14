@@ -2,16 +2,16 @@ package info.tuver.todo.ui.todo.todoTagSelect
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import info.tuver.todo.data.model.TagModel
-import info.tuver.todo.data.model.TagSelectModel
-import info.tuver.todo.data.repository.TagRepository
+import info.tuver.todo.domain.TagDomain
 import info.tuver.todo.extension.add
 import info.tuver.todo.extension.remove
 import info.tuver.todo.external.SingleLiveEvent
+import info.tuver.todo.model.TagModel
+import info.tuver.todo.model.TagSelectModel
 import info.tuver.todo.provider.CoroutineDispatcherProvider
 import info.tuver.todo.ui.base.BaseFragmentViewModel
 
-class TodoTagSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, private val tagRepository: TagRepository) : BaseFragmentViewModel(coroutineDispatcherProvider) {
+class TodoTagSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, private val tagDomain: TagDomain) : BaseFragmentViewModel(coroutineDispatcherProvider) {
 
     private val mutableSelectedTagListValue = MutableLiveData<List<TagModel>>()
 
@@ -21,16 +21,40 @@ class TodoTagSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispa
 
     val showTagEditViewEvent = SingleLiveEvent<TagModel>()
 
+    val tagSelectUpdatedEvent = SingleLiveEvent<TagSelectModel>()
+
     val selectedTagListValue: LiveData<List<TagModel>>
         get() = mutableSelectedTagListValue
 
     val tagSelectListValue: LiveData<List<TagSelectModel>>
         get() = mutableTagSelectListValue
 
+    init {
+        subscribe(tagDomain.tagCreatedSubject) { onTagCreated(it) }
+        subscribe(tagDomain.tagUpdatedSubject) { onTagUpdated(it) }
+        subscribe(tagDomain.tagDeletedSubject) { onTagDeleted(it) }
+    }
+
+    private fun onTagCreated(tag: TagModel) {
+        mutableTagSelectListValue.add(TagSelectModel(tag, true))
+        mutableSelectedTagListValue.add(tag)
+    }
+
+    private fun onTagUpdated(tag: TagModel) {
+        mutableTagSelectListValue.value?.find { it.idCode == tag.idCode }?.let { tagSelect ->
+            tagSelectUpdatedEvent.postValue(tagSelect)
+        }
+    }
+
+    private fun onTagDeleted(tag: TagModel) {
+        mutableSelectedTagListValue.remove(tag)
+        mutableTagSelectListValue.remove(mutableTagSelectListValue.value?.find { it.tag == tag })
+    }
+
     fun onLoadTagSelectListRequest() {
         asyncOnIo(
-            { tagRepository.getTagList() },
-            { mutableTagSelectListValue.postValue(it.map { TagSelectModel(it) }) }
+            { tagDomain.getTagSelectList() },
+            { mutableTagSelectListValue.postValue(it) }
         )
     }
 
@@ -49,19 +73,6 @@ class TodoTagSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispa
 
     fun onCreateNewTagButtonClicked() {
         showTagCreateViewEvent.call()
-    }
-
-    fun onTagCreated(tag: TagModel) {
-        mutableTagSelectListValue.add(TagSelectModel(tag, true))
-        mutableSelectedTagListValue.add(tag)
-    }
-
-    fun onTagEdited(tag: TagModel) {
-    }
-
-    fun onTagDeleted(tag: TagModel) {
-        mutableSelectedTagListValue.remove(tag)
-        mutableTagSelectListValue.remove(mutableTagSelectListValue.value?.find { it.tag == tag })
     }
 
 }

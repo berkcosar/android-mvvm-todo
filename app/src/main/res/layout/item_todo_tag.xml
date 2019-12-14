@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="info.tuver.todo.data.model.TagModel" />
+            type="info.tuver.todo.model.TagModel" />
 
         <variable
             name="actions"
@@ -17,7 +17,6 @@
     <com.google.android.material.chip.Chip
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
         android:onClick="@{() -> actions.onTodoTagClicked(item)}"
         android:text="@{item.name}"
         tools:text="Urgent" />

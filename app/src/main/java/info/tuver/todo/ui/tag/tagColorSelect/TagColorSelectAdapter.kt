@@ -3,7 +3,7 @@ package info.tuver.todo.ui.tag.tagColorSelect
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import info.tuver.todo.data.model.ColorSelectModel
+import info.tuver.todo.model.ColorSelectModel
 import info.tuver.todo.databinding.ItemTagColorSelectBinding
 import info.tuver.todo.ui.base.BaseAdapter
 

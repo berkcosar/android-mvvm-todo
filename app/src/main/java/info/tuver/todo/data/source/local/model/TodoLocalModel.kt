@@ -3,8 +3,8 @@ package info.tuver.todo.data.source.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import info.tuver.todo.data.model.TagModel
-import info.tuver.todo.data.model.TodoModel
+import info.tuver.todo.model.TagModel
+import info.tuver.todo.model.TodoModel
 import java.util.*
 
 @Entity(tableName = "todo")

@@ -17,7 +17,7 @@ interface TodoTagDao {
     @Query("delete from todo_tag where todoId = :todoId and tagId = :tagId")
     suspend fun delete(todoId: Long, tagId: Long)
 
-    @Query("delete from todo_tag where todoId = :todoId")
-    suspend fun deleteAll(todoId: Long)
+    @Query("delete from todo_tag where tagId = :tagId")
+    suspend fun deleteAll(tagId: Long)
 
 }

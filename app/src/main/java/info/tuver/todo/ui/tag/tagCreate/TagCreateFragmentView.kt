@@ -1,7 +1,6 @@
 package info.tuver.todo.ui.tag.tagCreate
 
 import android.content.Context
-import androidx.lifecycle.Observer
 import info.tuver.todo.R
 import info.tuver.todo.databinding.FragmentTagCreateBinding
 import info.tuver.todo.extension.addOnPropertyChangedCallback
@@ -19,13 +18,11 @@ class TagCreateFragmentView : BaseFragmentView<TagCreateFragmentViewModel, Fragm
         return getViewModel()
     }
 
-    override fun setupView(context: Context) {
+    override fun onSetupView(context: Context) {
         tagColorSelectFragmentView.selectedColor.addOnPropertyChangedCallback { viewModel.onTagColorSelected(it) }
-
-        viewModel.newTagCreatedEvent.observe(viewLifecycleOwner, Observer { publishEvent(TagCreateEvents.TagCreatedEvent(it)) })
     }
 
-    override fun startView(context: Context) {
+    override fun onStartView(context: Context) {
 
     }
 

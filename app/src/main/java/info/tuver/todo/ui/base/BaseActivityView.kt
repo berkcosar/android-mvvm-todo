@@ -3,20 +3,25 @@ package info.tuver.todo.ui.base
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import info.tuver.todo.BR
-import org.greenrobot.eventbus.EventBus
 
-abstract class BaseActivityView<TViewModel : BaseActivityViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int, private val consumesEvents: Boolean = false) : BaseActivity() {
+abstract class BaseActivityView<TViewModel : BaseActivityViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int) : BaseActivity() {
 
     protected lateinit var viewModel: TViewModel
 
+    private fun setupView() {
+        viewModel.completedEvent.observe(this, Observer { finish() })
+        onSetupView()
+    }
+
     protected abstract fun createViewModel(): TViewModel
 
-    protected abstract fun setupView()
+    protected abstract fun onSetupView()
 
-    protected abstract fun startView()
+    protected abstract fun onStartView()
 
-    protected open fun restoreView(savedInstanceState: Bundle) {
+    protected open fun onRestoreView(savedInstanceState: Bundle) {
 
     }
 
@@ -28,23 +33,7 @@ abstract class BaseActivityView<TViewModel : BaseActivityViewModel, TDataBinding
         binding.setVariable(BR.viewModel, viewModel)
 
         setupView()
-        savedInstanceState?.let { this.restoreView(it) } ?: this.startView()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (consumesEvents) {
-            EventBus.getDefault().register(this)
-        }
-    }
-
-    override fun onStop() {
-        if (consumesEvents) {
-            EventBus.getDefault().unregister(this)
-        }
-
-        super.onStop()
+        savedInstanceState?.let { this.onRestoreView(it) } ?: this.onStartView()
     }
 
 }

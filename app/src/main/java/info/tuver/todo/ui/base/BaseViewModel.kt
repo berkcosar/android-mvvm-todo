@@ -1,7 +1,12 @@
 package info.tuver.todo.ui.base
 
+import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
+import info.tuver.todo.external.SingleLiveEvent
 import info.tuver.todo.provider.CoroutineDispatcherProvider
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -15,6 +20,10 @@ abstract class BaseViewModel(coroutineDispatcherProvider: CoroutineDispatcherPro
 
     private val coroutineIoScope = CoroutineScope(coroutineDispatcherProvider.ioDispatcher + coroutineJob)
 
+    private val compositeDisposable = CompositeDisposable()
+
+    val completedEvent = SingleLiveEvent<Void>()
+
     protected fun <T> asyncOnIo(block: suspend CoroutineScope.() -> T, completedBlock: suspend CoroutineScope.(result: T) -> Unit = { }) {
         coroutineIoScope.launch {
             val result = block()
@@ -25,8 +34,18 @@ abstract class BaseViewModel(coroutineDispatcherProvider: CoroutineDispatcherPro
         }
     }
 
+    protected fun <T> subscribe(observable: Observable<T>, block: (T) -> Unit) {
+        compositeDisposable.add(
+            observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(block)
+        )
+    }
+
+    @CallSuper
     override fun onCleared() {
+        compositeDisposable.clear()
         coroutineJob.cancel()
+
         super.onCleared()
     }
 

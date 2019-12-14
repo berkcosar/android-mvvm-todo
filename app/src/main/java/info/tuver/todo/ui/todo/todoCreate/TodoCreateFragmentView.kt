@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import info.tuver.todo.R
 import info.tuver.todo.databinding.FragmentTodoCreateBinding
 import info.tuver.todo.extension.addOnPropertyChangedCallback
@@ -24,15 +23,14 @@ class TodoCreateFragmentView : BaseFragmentView<TodoCreateFragmentViewModel, Fra
         return getViewModel()
     }
 
-    override fun setupView(context: Context) {
+    override fun onSetupView(context: Context) {
         fragment_todo_create_content_edit_text.focusAndShowKeyboard()
         fragment_todo_create_content_edit_text.setOnEditorActionListener(this)
-        todoTagSelectFragmentView.selectedTagList.addOnPropertyChangedCallback { viewModel.onTodoTagSelectionChanged(it) }
 
-        viewModel.newTodoCreatedEvent.observe(viewLifecycleOwner, Observer { publishEvent(TodoCreateEvents.TodoCreatedEvent(it)) })
+        todoTagSelectFragmentView.selectedTagList.addOnPropertyChangedCallback { viewModel.onTodoTagSelectionChanged(it) }
     }
 
-    override fun startView(context: Context) {
+    override fun onStartView(context: Context) {
 
     }
 

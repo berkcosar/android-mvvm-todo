@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="item"
-            type="info.tuver.todo.data.model.TagSelectModel" />
+            type="info.tuver.todo.model.TagSelectModel" />
 
         <variable
             name="actions"
@@ -16,7 +17,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/item_todo_tag_select_tag_chip"
-        style="@style/Widget.MaterialComponents.Chip.Choice"
+        style="@style/Widget.MaterialComponents.Chip.Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="@{item.selected}"

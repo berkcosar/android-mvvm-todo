@@ -9,24 +9,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import info.tuver.todo.BR
-import org.greenrobot.eventbus.EventBus
 
-abstract class BaseFragmentView<TViewModel : BaseFragmentViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int, private val consumesEvents: Boolean = false) : Fragment() {
+abstract class BaseFragmentView<TViewModel : BaseFragmentViewModel, TDataBinding : ViewDataBinding>(private val layoutResourceId: Int) : Fragment() {
 
     protected lateinit var viewModel: TViewModel
 
     protected abstract fun createViewModel(): TViewModel
 
-    protected abstract fun setupView(context: Context)
+    protected abstract fun onSetupView(context: Context)
 
-    protected abstract fun startView(context: Context)
+    protected abstract fun onStartView(context: Context)
 
-    protected open fun restoreView(context: Context, savedInstanceState: Bundle) {
+    protected open fun onRestoreView(context: Context, savedInstanceState: Bundle) {
 
-    }
-
-    protected fun publishEvent(event: BaseEvent) {
-        EventBus.getDefault().post(event)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,25 +37,9 @@ abstract class BaseFragmentView<TViewModel : BaseFragmentViewModel, TDataBinding
         super.onViewCreated(view, savedInstanceState)
 
         context?.let { safeContext ->
-            setupView(safeContext)
-            savedInstanceState?.let { restoreView(safeContext, it) } ?: startView(safeContext)
+            onSetupView(safeContext)
+            savedInstanceState?.let { onRestoreView(safeContext, it) } ?: onStartView(safeContext)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (consumesEvents) {
-            EventBus.getDefault().register(this)
-        }
-    }
-
-    override fun onStop() {
-        if (consumesEvents) {
-            EventBus.getDefault().unregister(this)
-        }
-
-        super.onStop()
     }
 
 }

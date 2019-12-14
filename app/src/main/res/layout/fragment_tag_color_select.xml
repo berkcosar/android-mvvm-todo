@@ -11,7 +11,7 @@
 
         <variable
             name="selectedColor"
-            type="info.tuver.todo.data.model.ColorModel" />
+            type="info.tuver.todo.model.ColorModel" />
 
     </data>
 

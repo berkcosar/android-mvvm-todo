@@ -1,7 +1,7 @@
 package info.tuver.todo.ui.base
 
 import androidx.recyclerview.widget.DiffUtil
-import info.tuver.todo.data.model.BaseModel
+import info.tuver.todo.model.BaseModel
 
 class BaseAdapterDiffCallback<T : BaseModel>(private val oldItemList: List<T>, private val newItemList: List<T>) : DiffUtil.Callback() {
 

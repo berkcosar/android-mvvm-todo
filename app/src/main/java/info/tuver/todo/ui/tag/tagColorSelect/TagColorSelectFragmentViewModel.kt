@@ -2,12 +2,12 @@ package info.tuver.todo.ui.tag.tagColorSelect
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import info.tuver.todo.data.model.ColorSelectModel
-import info.tuver.todo.data.repository.ColorRepository
+import info.tuver.todo.domain.ColorDomain
+import info.tuver.todo.model.ColorSelectModel
 import info.tuver.todo.provider.CoroutineDispatcherProvider
 import info.tuver.todo.ui.base.BaseFragmentViewModel
 
-class TagColorSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, private val colorRepository: ColorRepository) : BaseFragmentViewModel(coroutineDispatcherProvider) {
+class TagColorSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, private val colorDomain: ColorDomain) : BaseFragmentViewModel(coroutineDispatcherProvider) {
 
     private val mutableColorSelectListValue = MutableLiveData<List<ColorSelectModel>>()
 
@@ -21,8 +21,8 @@ class TagColorSelectFragmentViewModel(coroutineDispatcherProvider: CoroutineDisp
 
     fun loadColorSelectListRequest() {
         asyncOnIo(
-            { colorRepository.getColorList() },
-            { mutableColorSelectListValue.postValue(it.map { ColorSelectModel(it) }) }
+            { colorDomain.getColorSelectList() },
+            { mutableColorSelectListValue.postValue(it) }
         )
     }
 

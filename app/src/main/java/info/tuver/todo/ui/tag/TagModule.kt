@@ -1,6 +1,6 @@
 package info.tuver.todo.ui.tag
 
-import info.tuver.todo.data.model.TagModel
+import info.tuver.todo.model.TagModel
 import info.tuver.todo.ui.tag.tagColorSelect.TagColorSelectFragmentViewModel
 import info.tuver.todo.ui.tag.tagCreate.TagCreateFragmentViewModel
 import info.tuver.todo.ui.tag.tagEdit.TagEditFragmentViewModel

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import info.tuver.todo.data.model.BaseModel
+import info.tuver.todo.model.BaseModel
 
-abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActions, TViewHolder : BaseAdapterViewHolder<TItem, TAdapterActions>>(private val adapterActions: TAdapterActions? = null) :
+abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActions, TViewHolder : BaseAdapterViewHolder<TItem, TAdapterActions>>(private val adapterActions: TAdapterActions) :
     RecyclerView.Adapter<TViewHolder>() {
 
     private var itemList = mutableListOf<TItem>()

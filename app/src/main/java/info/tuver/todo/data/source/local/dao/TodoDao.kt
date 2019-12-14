@@ -12,6 +12,9 @@ interface TodoDao {
     @Query("select * from todo where deleted = 0 order by createdDate asc")
     suspend fun selectList(): List<TodoLocalModel>
 
+    @Query("select * from todo where id in (select todoId from todo_tag where tagId in (:tagIdList) group by todoId having count(*) = :tagIdListSize) and deleted = 0 order by createdDate asc")
+    suspend fun selectList(tagIdList: List<Long>, tagIdListSize: Int): List<TodoLocalModel>
+
     @Query("select * from tag where id in (select tagId from todo_tag where todoId = :todoId)")
     suspend fun selectTagList(todoId: Long): List<TagLocalModel>
 

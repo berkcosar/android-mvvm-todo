@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="info.tuver.todo.model.TagModel" />
+
+        <variable
+            name="actions"
+            type="info.tuver.todo.ui.todo.todoList.TodoTagFilterAdapterActions" />
+
+    </data>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/item_todo_tag_filter_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="@{item.name}"
+        app:closeIconEnabled="true"
+        tools:text="Urgent" />
+
+</layout>

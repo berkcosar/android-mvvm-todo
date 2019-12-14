@@ -1,9 +1,8 @@
 package info.tuver.todo.ui.tag.tagEdit
 
 import android.content.Context
-import androidx.lifecycle.Observer
 import info.tuver.todo.R
-import info.tuver.todo.data.model.TagModel
+import info.tuver.todo.model.TagModel
 import info.tuver.todo.databinding.FragmentTagEditBinding
 import info.tuver.todo.extension.putSerializableArgument
 import info.tuver.todo.extension.requireSerializableArgument
@@ -20,12 +19,11 @@ class TagEditFragmentView : BaseFragmentView<TagEditFragmentViewModel, FragmentT
         return getViewModel { parametersOf(tag) }
     }
 
-    override fun setupView(context: Context) {
-        viewModel.tagUpdatedEvent.observe(viewLifecycleOwner, Observer { publishEvent(TagEditEvents.TagEditedEvent(it)) })
-        viewModel.tagDeletedEvent.observe(viewLifecycleOwner, Observer { publishEvent(TagEditEvents.TagDeletedEvent(it)) })
+    override fun onSetupView(context: Context) {
+
     }
 
-    override fun startView(context: Context) {
+    override fun onStartView(context: Context) {
 
     }
 

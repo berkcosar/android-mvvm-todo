@@ -3,7 +3,7 @@ package info.tuver.todo.data.source.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import info.tuver.todo.data.model.TagModel
+import info.tuver.todo.model.TagModel
 
 @Entity(tableName = "tag")
 class TagLocalModel(

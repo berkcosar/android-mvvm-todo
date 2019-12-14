@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="info.tuver.todo.data.model.ColorSelectModel" />
+            type="info.tuver.todo.model.ColorSelectModel" />
 
         <variable
             name="actions"

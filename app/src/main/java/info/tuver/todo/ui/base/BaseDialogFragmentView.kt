@@ -12,9 +12,8 @@ import androidx.lifecycle.Observer
 import info.tuver.todo.R
 import info.tuver.todo.extension.replaceFragment
 import kotlinx.android.synthetic.main.fragment_base_dialog.view.*
-import org.greenrobot.eventbus.EventBus
 
-abstract class BaseDialogFragmentView<TViewModel : BaseDialogFragmentViewModel, TFragment : Fragment>(private val consumesEvents: Boolean = false) : DialogFragment() {
+abstract class BaseDialogFragmentView<TViewModel : BaseDialogFragmentViewModel, TFragment : Fragment> : DialogFragment() {
 
     protected lateinit var viewModel: TViewModel
 
@@ -24,14 +23,14 @@ abstract class BaseDialogFragmentView<TViewModel : BaseDialogFragmentViewModel, 
 
     @CallSuper
     protected open fun setupView(context: Context) {
-        viewModel.dialogCompletedEvent.observe(viewLifecycleOwner, Observer { dismiss() })
+        viewModel.completedEvent.observe(viewLifecycleOwner, Observer { dismiss() })
     }
 
-    protected open fun startView(context: Context) {
+    protected open fun onStartView(context: Context) {
 
     }
 
-    protected open fun restoreView(context: Context, savedInstanceState: Bundle) {
+    protected open fun onRestoreView(context: Context, savedInstanceState: Bundle) {
 
     }
 
@@ -48,24 +47,8 @@ abstract class BaseDialogFragmentView<TViewModel : BaseDialogFragmentViewModel, 
 
         context?.let { safeContext ->
             setupView(safeContext)
-            savedInstanceState?.let { restoreView(safeContext, it) } ?: startView(safeContext)
+            savedInstanceState?.let { onRestoreView(safeContext, it) } ?: onStartView(safeContext)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (consumesEvents) {
-            EventBus.getDefault().register(this)
-        }
-    }
-
-    override fun onStop() {
-        if (consumesEvents) {
-            EventBus.getDefault().unregister(this)
-        }
-
-        super.onStop()
     }
 
 }

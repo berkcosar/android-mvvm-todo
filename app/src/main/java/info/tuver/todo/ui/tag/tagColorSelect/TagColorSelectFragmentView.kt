@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
 import info.tuver.todo.R
-import info.tuver.todo.data.model.ColorModel
-import info.tuver.todo.data.model.ColorSelectModel
+import info.tuver.todo.model.ColorModel
+import info.tuver.todo.model.ColorSelectModel
 import info.tuver.todo.databinding.FragmentTagColorSelectBinding
 import info.tuver.todo.ui.base.BaseFragmentView
 import info.tuver.todo.ui.common.SpacingItemDecoration
@@ -26,7 +26,7 @@ class TagColorSelectFragmentView : BaseFragmentView<TagColorSelectFragmentViewMo
         return getViewModel()
     }
 
-    override fun setupView(context: Context) {
+    override fun onSetupView(context: Context) {
         fragment_tag_color_select_color_recycler.adapter = tagColorSelectAdapter
         fragment_tag_color_select_color_recycler.addItemDecoration(SpacingItemDecoration(context))
 
@@ -34,7 +34,7 @@ class TagColorSelectFragmentView : BaseFragmentView<TagColorSelectFragmentViewMo
         viewModel.selectedColorSelectValue.observe(viewLifecycleOwner, Observer { selectedColor.set(it.color) })
     }
 
-    override fun startView(context: Context) {
+    override fun onStartView(context: Context) {
         viewModel.loadColorSelectListRequest()
     }
 

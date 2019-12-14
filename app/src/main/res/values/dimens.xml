@@ -6,4 +6,6 @@
     <dimen name="fab_width">48dp</dimen>
     <dimen name="fab_height">48dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="background_round_corner">16dp</dimen>
+    <dimen name="chip_height">32dp</dimen>
 </resources>

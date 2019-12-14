@@ -1,13 +1,13 @@
 package info.tuver.todo.ui.todo.todoTagCreateDialog
 
-import info.tuver.todo.data.model.TagModel
+import info.tuver.todo.domain.TagDomain
 import info.tuver.todo.provider.CoroutineDispatcherProvider
 import info.tuver.todo.ui.base.BaseDialogFragmentViewModel
 
-class TodoTagCreateDialogFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider) : BaseDialogFragmentViewModel(coroutineDispatcherProvider) {
+class TodoTagCreateDialogFragmentViewModel(coroutineDispatcherProvider: CoroutineDispatcherProvider, tagDomain: TagDomain) : BaseDialogFragmentViewModel(coroutineDispatcherProvider) {
 
-    fun onTagCreated(tag: TagModel) {
-        dialogCompletedEvent.call()
+    init {
+        subscribe(tagDomain.tagCreatedSubject) { completedEvent.call() }
     }
 
 }
