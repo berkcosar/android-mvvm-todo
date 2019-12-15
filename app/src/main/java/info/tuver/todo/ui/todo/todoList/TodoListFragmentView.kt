@@ -25,8 +25,6 @@ class TodoListFragmentView : BaseFragmentView<TodoListFragmentViewModel, Fragmen
 
     private val todoTagFilterAdapter = TodoTagFilterAdapter(this)
 
-    private val controllableAppBarLayoutBehavior = ControllableAppBarLayoutBehavior(false, context)
-
     private fun updateTodoList(todoList: List<TodoModel>) {
         todoListAdapter.updateItemList(todoList)
     }
@@ -49,12 +47,10 @@ class TodoListFragmentView : BaseFragmentView<TodoListFragmentViewModel, Fragmen
     }
 
     private fun disableAppBarAndCollapse() {
-        controllableAppBarLayoutBehavior.isEnabled = false
         fragment_todo_list_app_bar_layout.setExpanded(false, true)
     }
 
     private fun enableAppBarAndExpand() {
-        controllableAppBarLayoutBehavior.isEnabled = true
         fragment_todo_list_app_bar_layout.setExpanded(true, true)
     }
 
@@ -69,7 +65,7 @@ class TodoListFragmentView : BaseFragmentView<TodoListFragmentViewModel, Fragmen
         fragment_todo_list_tag_filter_recycler.adapter = todoTagFilterAdapter
         fragment_todo_list_tag_filter_recycler.addItemDecoration(SpacingItemDecoration(context))
         fragment_todo_list_app_bar_layout.setExpanded(false, false)
-        fragment_todo_list_app_bar_layout.setCoordinatorLayoutBehavior(controllableAppBarLayoutBehavior)
+        fragment_todo_list_app_bar_layout.setCoordinatorLayoutBehavior(ControllableAppBarLayoutBehavior(false, context))
 
         viewModel.todoListValue.observe(viewLifecycleOwner, Observer { updateTodoList(it) })
         viewModel.todoUpdatedEvent.observe(viewLifecycleOwner, Observer { updateTodo(it) })

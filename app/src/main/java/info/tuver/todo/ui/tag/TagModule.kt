@@ -10,5 +10,5 @@ import org.koin.dsl.module
 val tagModule = module {
     viewModel { TagCreateFragmentViewModel(get(), get()) }
     viewModel { (tag: TagModel) -> TagEditFragmentViewModel(get(), get(), tag) }
-    viewModel { TagColorSelectFragmentViewModel(get(), get()) }
+    viewModel { (preSelectedColor: String?) -> TagColorSelectFragmentViewModel(get(), get(), preSelectedColor) }
 }

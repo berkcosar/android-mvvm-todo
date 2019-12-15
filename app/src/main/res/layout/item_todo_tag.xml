@@ -15,10 +15,13 @@
     </data>
 
     <com.google.android.material.chip.Chip
+        chipBackgroundColor="@{item.color}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="@{() -> actions.onTodoTagClicked(item)}"
         android:text="@{item.name}"
+        android:textColor="@color/colorWhite"
+        tools:chipBackgroundColor="@color/colorAccent"
         tools:text="Urgent" />
 
 </layout>

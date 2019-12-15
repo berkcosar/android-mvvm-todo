@@ -46,7 +46,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="@dimen/content_spacing_half"
-            android:background="@drawable/bg_ripple_white_rounded"
+            android:background="@drawable/bg_ripple_transparent_circular"
             android:contentDescription="@string/todo_save"
             android:onClick="@{() -> viewModel.onCreateTodoRequest()}"
             android:scaleType="fitCenter"

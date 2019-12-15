@@ -3,12 +3,11 @@
     android:color="?android:colorControlHighlight">
 
     <item android:id="@android:id/mask">
-        <shape android:shape="rectangle">
+        <shape android:shape="oval">
             <solid android:color="@color/colorGrayLight" />
-            <corners android:radius="@dimen/background_round_corner" />
         </shape>
     </item>
 
-    <item android:drawable="@drawable/bg_white_rounded" />
+    <item android:drawable="@color/colorTransparent" />
 
 </ripple>

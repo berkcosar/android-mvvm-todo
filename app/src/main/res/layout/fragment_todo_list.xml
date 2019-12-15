@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorBeige"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragment_todo_list_tag_filter_recycler"

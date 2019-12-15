@@ -8,7 +8,7 @@ import info.tuver.todo.data.source.local.model.TagLocalModel
 @Dao
 interface TagDao {
 
-    @Query("select * from tag")
+    @Query("select * from tag order by name asc")
     suspend fun selectList(): List<TagLocalModel>
 
     @Query("select * from tag where id = :id limit 1")

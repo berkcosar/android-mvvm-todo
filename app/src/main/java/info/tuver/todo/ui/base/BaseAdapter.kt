@@ -4,11 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import info.tuver.todo.model.BaseModel
 
 abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActions, TViewHolder : BaseAdapterViewHolder<TItem, TAdapterActions>>(private val adapterActions: TAdapterActions) :
     RecyclerView.Adapter<TViewHolder>() {
+
+    private var attachedRecyclerView: RecyclerView? = null
 
     private var itemList = mutableListOf<TItem>()
 
@@ -18,6 +21,14 @@ abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActio
 
     protected open fun getItem(position: Int): TItem? {
         return itemList.get(position)
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        attachedRecyclerView = recyclerView
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        attachedRecyclerView = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TViewHolder {
@@ -60,7 +71,6 @@ abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActio
             }
         }
     }
-
     fun removeItem(position: Int) {
         itemList.removeAt(position)
         notifyItemRemoved(position)
@@ -68,6 +78,10 @@ abstract class BaseAdapter<TItem : BaseModel, TAdapterActions : BaseAdapterActio
 
     fun notifyItemChanged(item: TItem) {
         notifyItemChanged(itemList.indexOf(item))
+    }
+
+    fun scrollToItem(item: TItem) {
+        attachedRecyclerView?.scrollToPosition(itemList.indexOf(item))
     }
 
 }
